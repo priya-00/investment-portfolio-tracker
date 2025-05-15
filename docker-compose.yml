@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:14'
+    environment:
+      - 'POSTGRES_DB=investments'
+      - 'POSTGRES_USER=priya'
+      - 'POSTGRES_PASSWORD=postgres'
+    ports:
+      - "5432:5432"
