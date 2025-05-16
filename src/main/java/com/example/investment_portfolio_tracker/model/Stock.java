@@ -1,10 +1,9 @@
 package com.example.investment_portfolio_tracker.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -21,13 +20,24 @@ public class Stock {
     private String name;
 
     @NotBlank
+    private String ticker;
+
+    @NotNull
+    private int quantity;
+
+    @NotNull
     private double value;
+
+    @NotBlank
+    private String exchange;
+
+    @NotBlank
+    private String currency;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne
-    private PortfolioUser portfolioUser;
-
-    @ManyToOne
+    @JoinColumn(name = "portfolio_id")
+    @JsonBackReference("user-portfolio")
     private Portfolio portfolio;
 }

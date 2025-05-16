@@ -1,6 +1,7 @@
 package com.example.investment_portfolio_tracker.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Portfolio {
     private PortfolioUser portfolioUser;
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
+    @JsonManagedReference("user-portfolio")
     private List<Stock> stockList = new ArrayList<>();
 
 }
