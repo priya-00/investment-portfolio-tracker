@@ -4,6 +4,7 @@ import com.example.investment_portfolio_tracker.dto.StockDto;
 import com.example.investment_portfolio_tracker.model.Stock;
 import com.example.investment_portfolio_tracker.service.StockService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class StockController {
 
     // update
     @PutMapping("/{stockId}")
-    public Stock updateStockById(@PathVariable Long stockId, @RequestBody Stock stock) {
-        return stockService.updateAssetById(stockId, stock);
+    public ResponseEntity<StockDto> updateStockById(@PathVariable Long stockId, @RequestBody StockDto stockDto) {
+        return stockService.updateStockById(stockId, stockDto);
     }
 
     // get
