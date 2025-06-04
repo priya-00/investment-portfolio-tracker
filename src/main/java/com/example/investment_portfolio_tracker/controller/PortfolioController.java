@@ -2,13 +2,11 @@ package com.example.investment_portfolio_tracker.controller;
 
 import com.example.investment_portfolio_tracker.dto.PortfolioDto;
 import com.example.investment_portfolio_tracker.model.Portfolio;
-import com.example.investment_portfolio_tracker.model.Stock;
 import com.example.investment_portfolio_tracker.service.PortfolioService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.sampled.Port;
 import java.util.List;
 
 @RestController

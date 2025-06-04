@@ -2,14 +2,13 @@ package com.example.investment_portfolio_tracker.service;
 
 import com.example.investment_portfolio_tracker.dto.PortfolioDto;
 import com.example.investment_portfolio_tracker.exception.PortfolioNotFoundException;
+import com.example.investment_portfolio_tracker.exception.PortfolioUserNotFoundException;
 import com.example.investment_portfolio_tracker.model.Portfolio;
 import com.example.investment_portfolio_tracker.model.PortfolioUser;
-import com.example.investment_portfolio_tracker.model.Stock;
 import com.example.investment_portfolio_tracker.repository.PortfolioRepository;
 import com.example.investment_portfolio_tracker.repository.PortfolioUserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,8 @@ public class PortfolioService {
     // create
     public Portfolio createNewPortfolio(Portfolio portfolio, Long userId) {
         log.info("Creating new portfolio with name: {}", portfolio.getName() );
-        portfolio.setPortfolioUser(portfolioUserRepository.getById(userId));
+        PortfolioUser portfolioUser = portfolioUserRepository.findById(userId).orElseThrow(() -> new PortfolioUserNotFoundException("Portfolio user not found."));
+        portfolio.setPortfolioUser(portfolioUser);
         return portfolioRepository.save(portfolio);
     }
 
