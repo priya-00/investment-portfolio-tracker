@@ -1,9 +1,11 @@
 package com.example.investment_portfolio_tracker.controller;
 
+import com.example.investment_portfolio_tracker.dto.PortfolioDto;
 import com.example.investment_portfolio_tracker.model.Portfolio;
 import com.example.investment_portfolio_tracker.model.Stock;
 import com.example.investment_portfolio_tracker.service.PortfolioService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.sound.sampled.Port;
@@ -24,8 +26,8 @@ public class PortfolioController {
 
     // update
     @PutMapping("/{portfolioId}")
-    public Portfolio updatePortfolioById(@PathVariable Long portfolioId, @RequestBody Portfolio portfolio) {
-        return portfolioService.updatePortfolioById(portfolioId, portfolio);
+    public ResponseEntity<PortfolioDto> updatePortfolioById(@PathVariable Long portfolioId, @RequestBody PortfolioDto portfolioDto) {
+        return portfolioService.updatePortfolioById(portfolioId, portfolioDto);
     }
 
     // get

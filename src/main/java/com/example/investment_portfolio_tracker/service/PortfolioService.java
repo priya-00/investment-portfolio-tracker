@@ -1,5 +1,7 @@
 package com.example.investment_portfolio_tracker.service;
 
+import com.example.investment_portfolio_tracker.dto.PortfolioDto;
+import com.example.investment_portfolio_tracker.exception.PortfolioNotFoundException;
 import com.example.investment_portfolio_tracker.model.Portfolio;
 import com.example.investment_portfolio_tracker.model.PortfolioUser;
 import com.example.investment_portfolio_tracker.model.Stock;
@@ -9,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,12 +32,20 @@ public class PortfolioService {
     }
 
     // update
-    public Portfolio updatePortfolioById(Long portfolioId, Portfolio portfolio) {
-        if(portfolio.getId() == null) {
-            portfolio.setId(portfolioId);
-        }
+    public ResponseEntity<PortfolioDto> updatePortfolioById(Long portfolioId, PortfolioDto portfolioDto) {
+
+        Portfolio portfolio = portfolioRepository.findById(portfolioId)
+                .orElseThrow(() -> new PortfolioNotFoundException("Portfolio not found. Please check the portfolio ID."));
+
+        PortfolioUser portfolioUser = portfolio.getPortfolioUser();
+        portfolio.setName(portfolioDto.getName());
+        portfolio.setPortfolioUser(portfolioUser);
+
+        portfolioRepository.save(portfolio);
+
         log.info("Updating portfolio with ID: {}", portfolioId);
-        return portfolioRepository.save(portfolio);
+
+        return ResponseEntity.ok(portfolioDto);
     }
 
     // get

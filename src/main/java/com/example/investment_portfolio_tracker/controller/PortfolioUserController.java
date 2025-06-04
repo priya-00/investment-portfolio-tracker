@@ -1,8 +1,10 @@
 package com.example.investment_portfolio_tracker.controller;
 
+import com.example.investment_portfolio_tracker.dto.PortfolioUserDto;
 import com.example.investment_portfolio_tracker.model.PortfolioUser;
 import com.example.investment_portfolio_tracker.service.PortfolioUserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +24,8 @@ public class PortfolioUserController {
 
     // update
     @PutMapping("/{userId}")
-    // TODO: update request body to accept user object with optional attributes - dto??
-    public PortfolioUser updateUserById(@PathVariable Long userId, @RequestBody PortfolioUser portfolioUser) {
-        return portfolioUserService.updateUserById(userId, portfolioUser);
+    public ResponseEntity<PortfolioUserDto> updateUserById(@PathVariable Long userId, @RequestBody PortfolioUserDto portfolioUserDto) {
+        return portfolioUserService.updateUserById(userId, portfolioUserDto);
     }
 
     // get
