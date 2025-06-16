@@ -7,6 +7,7 @@ import com.example.investment_portfolio_tracker.repository.PortfolioUserReposito
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,12 +20,18 @@ import java.util.List;
 @AllArgsConstructor
 public class PortfolioUserService {
 
-    PortfolioUserRepository portfolioUserRepository;
+    @Autowired
+    private PortfolioUserRepository portfolioUserRepository;
 
     // create
-    public PortfolioUser createNewUser(PortfolioUser portfolioUser) {
-        log.info("Creating new user with name: {}", portfolioUser.getName() );
-        return portfolioUserRepository.save(portfolioUser);
+    public PortfolioUser createNewUser(PortfolioUserDto portfolioUserDto) {
+        log.info("Creating new user with name: {}", portfolioUserDto.getName() );
+
+        PortfolioUser newUser = new PortfolioUser();
+        newUser.setName(portfolioUserDto.getName());
+        newUser.setEmail(portfolioUserDto.getEmail());
+
+        return portfolioUserRepository.save(newUser);
     }
 
     // update

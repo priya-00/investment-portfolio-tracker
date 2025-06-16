@@ -7,8 +7,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/stock")
+@RequestMapping("/stocks")
 @AllArgsConstructor
 public class StockController {
 
@@ -26,16 +28,16 @@ public class StockController {
         return stockService.updateStockById(stockId, stockDto);
     }
 
-    // get
-    @GetMapping("/{stockId}")
-    public Stock getAssetById(@PathVariable Long stockId) {
-        return stockService.getAssetById(stockId);
+    // get all by portfolio ID
+    @GetMapping("/{portfolioId}")
+    public List<Stock> getStockByPortfolioId(@PathVariable Long portfolioId) {
+        return stockService.getStockByPortfolioId(portfolioId);
     }
 
     // delete
     @DeleteMapping("/{stockId}")
-    public void deleteAssetById(@PathVariable Long stockId) {
-        stockService.deleteAssetById(stockId);
+    public void deleteStockById(@PathVariable Long stockId) {
+        stockService.deleteStockById(stockId);
     }
 
 }

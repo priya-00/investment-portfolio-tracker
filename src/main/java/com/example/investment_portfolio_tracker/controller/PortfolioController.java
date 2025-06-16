@@ -17,7 +17,7 @@ public class PortfolioController {
     PortfolioService portfolioService;
 
     // create
-    @PostMapping("/{userId}")
+    @PostMapping("/user/{userId}")
     public Portfolio createNewPortfolio(@PathVariable Long userId, @RequestBody Portfolio portfolio) {
         return portfolioService.createNewPortfolio(portfolio, userId);
     }

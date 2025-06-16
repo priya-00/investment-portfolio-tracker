@@ -10,6 +10,7 @@ import com.example.investment_portfolio_tracker.repository.PortfolioUserReposito
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,10 @@ import java.util.List;
 @AllArgsConstructor
 public class PortfolioService {
 
-    PortfolioRepository portfolioRepository;
-    PortfolioUserRepository portfolioUserRepository;
+    @Autowired
+    private PortfolioRepository portfolioRepository;
+    @Autowired
+    private PortfolioUserRepository portfolioUserRepository;
 
     // create
     public Portfolio createNewPortfolio(Portfolio portfolio, Long userId) {

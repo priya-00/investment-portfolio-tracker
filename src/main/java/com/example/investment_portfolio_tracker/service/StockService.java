@@ -9,12 +9,14 @@ import com.example.investment_portfolio_tracker.model.StockResponse;
 import com.example.investment_portfolio_tracker.repository.PortfolioRepository;
 import com.example.investment_portfolio_tracker.repository.StockRepository;
 import com.example.investment_portfolio_tracker.util.StockHelper;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -26,7 +28,9 @@ public class StockService {
     @Value("${stock.api.key}")
     private String apiKey;
 
+    @Autowired
     private final StockRepository stockRepository;
+    @Autowired
     private final PortfolioRepository portfolioRepository;
     private final StockHelper stockHelper;
 
@@ -79,15 +83,15 @@ public class StockService {
         return ResponseEntity.ok(stockDto);
     }
 
-    // get
-    public Stock getAssetById(Long assetId) {
-        log.info("Fetching asset with ID: {}", assetId);
-        return stockRepository.findById(assetId).orElseThrow(() -> new EntityNotFoundException("Asset not found with ID: " + assetId));
+    // get all for given portfolio
+    public List<Stock> getStockByPortfolioId(Long portfolioId) {
+        log.info("Fetching all stocks for portfolio with ID: {}", portfolioId);
+        return stockRepository.findAllByPortfolioId(portfolioId);
     }
 
     // delete
-    public void deleteAssetById(Long assetId) {
-        log.info("Deleting asset with ID: {}", assetId);
-        stockRepository.deleteById(assetId);
+    public void deleteStockById(Long stockId) {
+        log.info("Deleting stock with ID: {}", stockId);
+        stockRepository.deleteById(stockId);
     }
 }

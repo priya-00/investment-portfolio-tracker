@@ -18,8 +18,8 @@ public class PortfolioUserController {
 
     // create
     @PostMapping
-    public PortfolioUser createNewUser(@RequestBody PortfolioUser portfolioUser) {
-        return portfolioUserService.createNewUser(portfolioUser);
+    public PortfolioUser createNewUser(@RequestBody PortfolioUserDto portfolioUserDto) {
+        return portfolioUserService.createNewUser(portfolioUserDto);
     }
 
     // update

@@ -1,5 +1,6 @@
 package com.example.investment_portfolio_tracker.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,5 +14,6 @@ public class StockDto {
     private String name;
 
     @NotNull(message = "Quantity of shares to be purchased is required.")
+    @Min(1)
     private int quantity;
 }
