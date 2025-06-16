@@ -7,3 +7,13 @@ services:
       - 'POSTGRES_PASSWORD=postgres'
     ports:
       - "5432:5432"
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - 'postgres'
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/investments'
+      - 'SPRING_DATASOURCE_USERNAME=priya'
+      - 'SPRING_DATASOURCE_PASSWORD=postgres'
